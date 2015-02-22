@@ -1,7 +1,7 @@
 import numpy as np
 import cv2
 
-video = cv2.VideoCapture('../data/pool.mp4')
+video = cv2.VideoCapture('../../data/flags.mp4')
 
 success, image = video.read()
 
