@@ -50,14 +50,27 @@ for frame_index in xrange(num_frames):
 
   pixel_across_time = np.array(pixel_across_time)
 
+  min_s, min_p = np.inf
+  min_norm = float('Inf')
+
   for s in xrange(num_frames):
-    for p in xrange(num_frames/2):
+    for p in xrange(num_frames/2): 
+      if (p < 5): continue
       window = pixel_across_time[:, s:s+p]
       test_window = pixel_across_time[:, s+p:s+p+p]
-      window_squared = np.square(window)
-      test_window_squared = np.square(test_window)
-      print np.sqrt(abs(window_squared - test_window_squared))
-		 
+      sq_diff = np.square(window - test_window)
+      norm = np.sqrt(sq_diff[0, :] + sq_diff[1, :] + sq_diff[2, :])
+      norm = np.sum(norm)
+      norm /= p
+      if norm < min_norm:
+      	print norm, s, p
+      	min_norm = norm
+      	min_s = s
+      	min_p = p
+
+  print min_norm, min_s, min_p
+	
+
 
       
 
